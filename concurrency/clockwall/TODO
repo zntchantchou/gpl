@@ -1,0 +1,6 @@
+☐ add flags 
+☐ listen to ports 
+☐ store data inside variables 
+☐ use variables to create a table 
+
+go run . -tokyo=8000 -newyork=8010 -london=8020
