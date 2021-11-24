@@ -1,28 +1,24 @@
 package main
 
 import (
-	"fmt"
+	"io"
 	"log"
 	"net"
+	"os"
 )
 
 func main() {
-	conn, err := net.Dial("tcp", "localhost:8000")
+	conn, err := net.Dial("tcp", "127.0.0.1:8000")
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("conn", conn)
-	// defer conn.Close()
-
-	// go fns.HandleConn(conn)
-	// // print echo server response
-	// go mustCopy(os.Stdout, conn)
-	// // send input to connection
-	// mustCopy(os.Stdin, conn)
+	defer conn.Close()
+	go mustCopy(os.Stdout, conn)
+	mustCopy(conn, os.Stdin)
 }
 
-// func mustCopy(dst io.Writer, src io.Reader) {
-// 	if _, err := io.Copy(dst, src); err != nil {
-// 		log.Fatal(err)
-// 	}
-// }
+func mustCopy(dst io.Writer, src io.Reader) {
+	if _, err := io.Copy(dst, src); err != nil {
+		log.Fatal(err)
+	}
+}

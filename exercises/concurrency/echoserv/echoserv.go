@@ -9,34 +9,43 @@ import (
 )
 
 // echo server receives
+
+func main() {
+	fmt.Println("[Echo server] starting")
+	serve()
+	fmt.Println("[Echo server] done")
+}
+
+func serve() {
+	l, err := net.Listen("tcp", "127.0.0.1:8000")
+	fmt.Println("[serve] listening on port 8000 ...")
+	if err != nil {
+		panic(err)
+	}
+	conn, err := l.Accept()
+	fmt.Println("[serve] connexion received ...")
+	if err != nil {
+		panic(err)
+	}
+	defer l.Close()
+	handleConn(conn)
+}
+
+func handleConn(c net.Conn) {
+	fmt.Println("[handleConn] start")
+	input := bufio.NewScanner(c)
+	for input.Scan() {
+		echo(c, input.Text(), 100*time.Millisecond)
+	}
+}
 func echo(c net.Conn, shout string, delay time.Duration) {
 	fmt.Fprintln(c, "\t", strings.ToUpper(shout))
 	time.Sleep(delay)
 	fmt.Fprintln(c, "\t", shout)
 	time.Sleep(delay)
-	fmt.Fprintln(c, "\t", strings.ToLower(shout))
-}
-
-func HandleConn(c net.Conn) {
-	input := bufio.NewScanner(c)
-	// listen for user input
-	for input.Scan() {
-		echo(c, input.Text(), 1*time.Second)
-	}
-	c.Close()
-}
-
-func main() {
-	ln, err := net.Listen("tcp", "localhost:3001")
-	if err != nil {
-		fmt.Println(err)
-	}
-	for {
-		fmt.Println("listening...")
-		conn, err := ln.Accept()
-		if err != nil {
-			fmt.Println(err)
-		}
-		HandleConn(conn)
-	}
+	fmt.Fprintln(c, "\t", strings.ToUpper(shout))
+	time.Sleep(delay)
+	fmt.Fprintln(c, "\t", shout)
+	time.Sleep(delay)
+	fmt.Fprintln(c, "\t", strings.ToUpper(shout))
 }
