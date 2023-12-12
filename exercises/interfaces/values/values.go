@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-// interface value is the zero value for an interface 
+// interface value is the zero value for an interface
 // it contains the type and the value
 var w io.Writer
 

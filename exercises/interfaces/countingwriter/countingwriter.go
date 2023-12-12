@@ -1,9 +1,8 @@
-package countingwriter
+package main
 
 import (
+	"exercises/interfaces/counters"
 	"io"
-
-	"github.com/zclmk/interfaces/counters"
 )
 
 var TotalBytes = int64(0)
