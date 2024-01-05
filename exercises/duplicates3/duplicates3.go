@@ -14,27 +14,26 @@ func main() {
 	// 	}
 	// 	fmt.Println(string(data))
 	// 	split := strings.Split(string(data), "\n")
-	// 	for elt, 
+	// 	for elt,
 	// }
- 
-	var arr []int = []int {1, 2, 3}
+
+	var arr []int = []int{1, 2, 3}
 
 	for i, v := range arr {
-		fmt.Print(i, v, "\n");
+		fmt.Print(i, v, "\n")
 	}
 
-	// size of the array is part of it's type, here declared explicitly 
-	arr2 := [3]int {4, 5, 6}
-
+	// size of the array is part of it's type, here declared explicitly
+	arr2 := [3]int{4, 5, 6}
 
 	for i, v := range arr2 {
-		fmt.Print(i, v, "\n");
+		fmt.Print(i, v, "\n")
 	}
 
 	// here size in the type is determinded at build time by the number of initializers
-	arr3 := [...]int {4, 5, 6}
+	arr3 := [...]int{4, 5, 6}
 
 	for i, v := range arr3 {
-		fmt.Print(i, v, "\n");
+		fmt.Print(i, v, "\n")
 	}
 }
